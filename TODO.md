@@ -6,6 +6,7 @@
 ### CLI
 - Make open-chat-mobile work from any path
 - Models manager (downlaod, delete, list recommended, list available, ...)
+- Frontend to interact with the LLM using cli
 
 ### FRONTEND
 - Download remote resources from CDNs (web interface working without internet)
