@@ -112,8 +112,9 @@ open-chat-mobile start
 6. **Open the web interface in your browser:**
 Go to [localhost:3000](http://localhost:3000)
 &nbsp;  
+&nbsp;  
   
-
+  
 7. **When you done using the program, stop the the server:**
 ```bash
 open-chat-mobile stop
