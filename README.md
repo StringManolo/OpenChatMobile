@@ -111,7 +111,8 @@ open-chat-mobile start
 
 6. **Open the web interface in your browser:**
 Go to [localhost:3000](http://localhost:3000)
-&nbsp;  
+&nbsp; 
+  
 &nbsp;  
   
   
