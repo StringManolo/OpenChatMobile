@@ -1,7 +1,7 @@
 /**
  * OpenChatMobile - Frontend Application
  * Main application controller with all UI and business logic
- * @version 2.0.1
+ * @version 2.0.2
  */
 
 class OpenChatMobile {
@@ -21,6 +21,11 @@ class OpenChatMobile {
         
         // Performance optimizations
         this.debounceTimers = {};
+        this.pendingTokens = new Map(); // Para acumular tokens
+        this.renderTimeout = null;
+        this.lastRenderTime = 0;
+        this.renderInterval = 50; // ms entre renders
+        this.accumulatedContent = new Map(); // Contenido acumulado por mensaje
         
         // Initialize application
         this.initLogger();
@@ -387,28 +392,21 @@ class OpenChatMobile {
     }
     
     /**
-     * Handle WebSocket messages
+     * Handle WebSocket messages - OPTIMIZADO PARA EVITAR PARPADEO
      */
     handleWebSocketMessage(event) {
         try {
             const data = JSON.parse(event.data);
-            this.logger.debug('WebSocket message received:', data);
             
             switch (data.type) {
                 case 'token':
                     if (this.typingMessageId) {
-                        const currentContent = this.getCurrentBotMessage() || '';
-                        this.updateMessageContent(this.typingMessageId, currentContent + data.token);
-                        this.scrollToBottom();
+                        this.accumulateToken(this.typingMessageId, data.token);
                     }
                     break;
                     
                 case 'done':
-                    this.isGenerating = false;
-                    this.stopBtn.disabled = true;
-                    this.sendBtn.disabled = false;
-                    this.typingMessageId = null;
-                    this.updateTokenCount();
+                    this.finalizeStream();
                     break;
                     
                 case 'error':
@@ -425,6 +423,129 @@ class OpenChatMobile {
         } catch (error) {
             this.logger.error('Error parsing WebSocket message:', error);
         }
+    }
+    
+    /**
+     * Acumula tokens y programa una actualización eficiente
+     */
+    accumulateToken(messageId, token) {
+        // Inicializar acumulador si no existe
+        if (!this.accumulatedContent.has(messageId)) {
+            this.accumulatedContent.set(messageId, '');
+        }
+        
+        // Acumular token
+        const currentContent = this.accumulatedContent.get(messageId) + token;
+        this.accumulatedContent.set(messageId, currentContent);
+        
+        // Programar actualización optimizada
+        this.scheduleOptimizedUpdate(messageId);
+    }
+    
+    /**
+     * Programa una actualización optimizada para evitar parpadeo
+     */
+    scheduleOptimizedUpdate(messageId) {
+        const now = Date.now();
+        
+        // Cancelar timeout anterior si existe
+        if (this.renderTimeout) {
+            clearTimeout(this.renderTimeout);
+        }
+        
+        // Si ha pasado suficiente tiempo desde el último render, renderizar inmediatamente
+        if (now - this.lastRenderTime > this.renderInterval) {
+            this.renderAccumulatedContent();
+            this.lastRenderTime = now;
+        } else {
+            // Programar render para el próximo intervalo
+            this.renderTimeout = setTimeout(() => {
+                this.renderAccumulatedContent();
+                this.lastRenderTime = Date.now();
+            }, this.renderInterval);
+        }
+    }
+    
+    /**
+     * Renderiza el contenido acumulado de manera eficiente
+     */
+    renderAccumulatedContent() {
+        this.accumulatedContent.forEach((content, messageId) => {
+            const messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                const contentElement = messageElement.querySelector('.message-content');
+                if (contentElement) {
+                    // Usar textContent para contenido simple (más rápido)
+                    if (content.includes('`') || content.includes('*') || content.includes('[')) {
+                        // Si tiene markdown, usar innerHTML
+                        contentElement.innerHTML = this.markdownToHtml(content);
+                    } else {
+                        // Si es texto simple, usar textContent (más rápido)
+                        contentElement.textContent = content;
+                    }
+                    
+                    // Remover indicador de typing si existe
+                    contentElement.classList.remove('typing');
+                    
+                    // Actualizar contador de tokens
+                    this.updateTokenCount();
+                }
+            }
+        });
+        
+        // Hacer scroll suave solo si estamos cerca del final
+        this.scrollToBottomIfNearEnd();
+    }
+    
+    /**
+     * Finaliza el stream y limpia los acumuladores
+     */
+    finalizeStream() {
+        // Renderizar cualquier contenido pendiente
+        if (this.renderTimeout) {
+            clearTimeout(this.renderTimeout);
+        }
+        this.renderAccumulatedContent();
+        
+        // Limpiar acumuladores
+        this.accumulatedContent.clear();
+        
+        // Actualizar estado
+        this.isGenerating = false;
+        this.stopBtn.disabled = true;
+        this.sendBtn.disabled = false;
+        this.typingMessageId = null;
+        
+        // Forzar scroll al final
+        this.scrollToBottom();
+    }
+    
+    /**
+     * Scroll suave solo si estamos cerca del final
+     */
+    scrollToBottomIfNearEnd() {
+        if (!this.messagesContainer) return;
+        
+        const container = this.messagesContainer;
+        const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+        
+        // Solo hacer scroll si estamos a menos de 100px del final
+        if (distanceFromBottom < 100) {
+            this.scrollToBottom();
+        }
+    }
+    
+    /**
+     * Scroll suave al final
+     */
+    scrollToBottom() {
+        if (!this.messagesContainer) return;
+        
+        // Usar scrollTo con behavior smooth para scroll suave
+        this.messagesContainer.scrollTo({
+            top: this.messagesContainer.scrollHeight,
+            behavior: 'smooth'
+        });
     }
     
     /**
@@ -624,7 +745,12 @@ class OpenChatMobile {
                 // Use WebSocket streaming
                 const messageId = `msg_${Date.now()}`;
                 this.typingMessageId = messageId;
+                
+                // Crear elemento de mensaje con contenido vacío
                 this.addMessage('bot', '', messageId);
+                
+                // Inicializar acumulador para este mensaje
+                this.accumulatedContent.set(messageId, '');
                 
                 // Prepare payload
                 const payload = {
@@ -661,6 +787,8 @@ class OpenChatMobile {
                 }
                 
                 const data = await response.json();
+                
+                // Actualizar mensaje con respuesta completa
                 this.updateMessageContent(messageId, data.response);
                 this.isGenerating = false;
                 this.stopBtn.disabled = true;
@@ -681,6 +809,12 @@ class OpenChatMobile {
             this.stopBtn.disabled = true;
             this.sendBtn.disabled = false;
             this.typingMessageId = null;
+            
+            // Limpiar acumuladores
+            this.accumulatedContent.clear();
+            if (this.renderTimeout) {
+                clearTimeout(this.renderTimeout);
+            }
         }
     }
     
@@ -710,6 +844,12 @@ class OpenChatMobile {
         if (this.ws && this.isConnected) {
             this.ws.send(JSON.stringify({ type: 'stop' }));
         }
+        
+        // Limpiar acumuladores y timeouts
+        if (this.renderTimeout) {
+            clearTimeout(this.renderTimeout);
+        }
+        this.accumulatedContent.clear();
         
         this.isGenerating = false;
         this.stopBtn.disabled = true;
@@ -1342,14 +1482,6 @@ class OpenChatMobile {
         this.messageInput.style.height = newHeight + 'px';
     }
     
-    scrollToBottom() {
-        setTimeout(() => {
-            if (this.messagesContainer) {
-                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-            }
-        }, 100);
-    }
-    
     updateChatTitle() {
         if (!this.currentChatTitle) return;
         
@@ -1648,7 +1780,9 @@ class OpenChatMobile {
             serverHealth: this.serverHealth,
             serverConfig: this.serverConfig,
             uploadedFile: this.uploadedFile,
-            reconnectAttempts: this.reconnectAttempts
+            reconnectAttempts: this.reconnectAttempts,
+            pendingTokens: this.pendingTokens.size,
+            accumulatedContent: this.accumulatedContent.size
         };
     }
     
@@ -1656,9 +1790,17 @@ class OpenChatMobile {
      * Cleanup on page unload
      */
     cleanup() {
+        // Limpiar timeouts
+        if (this.renderTimeout) {
+            clearTimeout(this.renderTimeout);
+        }
+        
+        // Cerrar WebSocket
         if (this.ws) {
             this.ws.close(1000, 'Page unloading');
         }
+        
+        // Guardar estado
         this.saveCurrentState();
         this.logger.info('Application cleanup completed');
     }

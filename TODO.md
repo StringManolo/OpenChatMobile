@@ -11,7 +11,8 @@
 - Download remote resources from CDNs (web interface working without internet)
 
 ### UI
-- Fix UI reloading per token
+- Remoce spaces prepended into user messages
+- Fix UI reloading per token ✓
 
 ### BINS
 - Add llama-server bins for:

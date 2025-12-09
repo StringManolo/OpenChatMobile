@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 # Avoid uploading models to remote
 *.gguf
+
+
+logs/*
