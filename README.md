@@ -19,8 +19,8 @@ proot-distro login debian
 ## Screenshots
 
 <div align="center">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura 1" width="250" style="max-width: 100%;">
   <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-    <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura 1" width="250" style="max-width: 100%;">
     <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg" alt="Captura 2" width="250" style="max-width: 100%;">
     <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg" alt="Captura 3" width="250" style="max-width: 100%;">
     <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_4.jpg" alt="Captura 4" width="250" style="max-width: 100%;">
