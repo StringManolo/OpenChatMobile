@@ -17,21 +17,17 @@ proot-distro login debian
 ```
 
 ## Screenshots
-<p align="center">
-  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura de pantalla 1: Interfaz principal del chat" width="350" style="max-width: 100%;">
-</p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg" alt="Captura de pantalla 2: Menú de selección de chat y ajustes" width="350" style="max-width: 100%;">
-</p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg" alt="Captura de pantalla 3: Ajustes avanzados de modelo (temperatura y tokens)" width="350" style="max-width: 100%;">
-</p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_4.jpg" alt="Captura de pantalla 4: Vista de chat con respuesta de streaming" width="350" style="max-width: 100%;">
-</p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_5.jpg" alt="Captura de pantalla 5: Modo oscuro de la interfaz" width="350" style="max-width: 100%;">
-</p>
+## Screenshots
+
+<div align="center">
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+    <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura 1" width="350" style="max-width: 100%;">
+    <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg" alt="Captura 2" width="350" style="max-width: 100%;">
+    <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg" alt="Captura 3" width="350" style="max-width: 100%;">
+    <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_4.jpg" alt="Captura 4" width="350" style="max-width: 100%;">
+    <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_5.jpg" alt="Captura 5" width="350" style="max-width: 100%;">
+  </div>
+</div>
 
 ## Features
 
