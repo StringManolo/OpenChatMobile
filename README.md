@@ -16,6 +16,17 @@ proot-distro login debian
 # proot-distro list
 ```
 
+## Screenshots
+![screenshot 1](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg)  
+  
+![screenshot 2](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg)  
+  
+![screenshot 3](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg)  
+  
+![screenshot 4](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_4.jpg)  
+  
+![screenshot 1](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_5.jpg)  
+
 ## Features
 
 ### Frontend Features
