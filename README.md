@@ -72,6 +72,7 @@ proot-distro login debian
 git clone https://github.com/stringmanolo/openchatmobile
 cd openchatmobile
 ```
+  
 
 2. **Download the model:**
 ```bash
@@ -81,26 +82,31 @@ chmod 775 download_Llama-3.2-1B-Instruct-Q4_K_M.gguf_.sh
 ./download_Llama-3.2-1B-Instruct-Q4_K_M.gguf_.sh
 cd ..
 ```
+  
 
 3. **Install Backend:**
 ```bash
 cd backend
 npm install
 ```
+  
 
 4. **Give permissions and create global command:**
 ```bash
 chmod 775 cli.js create-symbolic-link.sh
 ./create-symbolic-link.sh
 ```
+  
 
 5. **Start the server:**
 ```bash
 open-chat-mobile start
 ```
+  
 
 6. **Open the web interface in your browser:**
 Go to [localhost:3000](http://localhost:3000)
+  
 
 7. **When you done using the program, stop the the server:**
 ```bash
