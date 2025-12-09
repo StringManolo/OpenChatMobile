@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenChatMobile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <meta name="description" content="OpenChatMobile - A modern chat interface for LLaMA models">
+    <meta name="theme-color" content="#007bff">
+</head>
+<body class="light-theme">
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-robot"></i> OpenChatMobile</h2>
+                <button class="btn-icon" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- New Chat Button -->
+                <button class="btn-primary" id="newChatBtn">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+                
+                <!-- Chat History -->
+                <div class="chat-history">
+                    <h3><i class="fas fa-history"></i> Recent Chats</h3>
+                    <div class="chat-list" id="chatList">
+                        <!-- Chats will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Settings -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-cog"></i> Settings</h3>
+                    
+                    <div class="setting-group">
+                        <label for="modelSelect">Model</label>
+                        <select id="modelSelect" class="select">
+                            <option value="">Loading models...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="maxTokens">Max Tokens: <span id="maxTokensValue">200</span></label>
+                        <input type="range" id="maxTokens" min="1" max="4096" value="200" class="slider">
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="temperature">Temperature: <span id="temperatureValue">0.7</span></label>
+                        <input type="range" id="temperature" min="0" max="2" step="0.1" value="0.7" class="slider">
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="systemPrompt">System Prompt</label>
+                        <textarea id="systemPrompt" class="textarea" placeholder="You are a helpful assistant..."></textarea>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span><i class="fas fa-moon"></i> Dark Mode</span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-actions">
+                        <button class="btn-secondary" id="exportChatBtn">
+                            <i class="fas fa-download"></i> Export Chat
+                        </button>
+                        
+                        <button class="btn-secondary" id="clearHistoryBtn">
+                            <i class="fas fa-trash"></i> Clear History
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="sidebar-footer">
+                    <div class="connection-status" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                    <div class="version">v2.0.0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Chat Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <button class="btn-icon sidebar-toggle" id="mobileSidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="currentChatTitle">OpenChatMobile</h1>
+                </div>
+                
+                <div class="top-bar-right">
+                    <div class="debug-info">
+                        <span class="debug-item" id="tokenCount"><i class="fas fa-hashtag"></i> Tokens: 0</span>
+                        <span class="debug-item" id="wsStatus"><i class="fas fa-wifi"></i> WS: Connecting</span>
+                    </div>
+                    
+                    <button class="btn-icon" id="stopBtn" disabled title="Stop Generation">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Messages Container -->
+            <div class="messages-container" id="messagesContainer">
+                <!-- Welcome message will appear here initially -->
+                <div class="welcome-message">
+                    <div class="welcome-content">
+                        <h3>👋 Welcome to OpenChatMobile</h3>
+                        <p>Start a new conversation or select one from your chat history.</p>
+                        <div class="welcome-features">
+                            <div class="feature">
+                                <i class="fas fa-bolt"></i>
+                                <span>Fast responses with streaming</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-moon"></i>
+                                <span>Dark/Light mode</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-file-upload"></i>
+                                <span>File upload support</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-cog"></i>
+                                <span>Customizable settings</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary" id="createFirstChatBtn">
+                            <i class="fas fa-plus"></i> Create Your First Chat
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-tools">
+                    <label class="btn-icon" for="fileUpload" title="Upload File">
+                        <i class="fas fa-paperclip"></i>
+                    </label>
+                    <input type="file" id="fileUpload" style="display: none;" accept=".txt,.md,.html,.json,.csv,.pdf,image/*">
+                    
+                    <button class="btn-icon" id="clearInputBtn" title="Clear Input">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Type your message here... (Shift+Enter for new line, Enter to send)" 
+                        rows="1"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="true"
+                    ></textarea>
+                    
+                    <div class="input-actions">
+                        <button class="btn-primary" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="input-footer">
+                    <span class="hint">
+                        <i class="fas fa-lightbulb"></i> 
+                        You can upload text files or drag & drop files here
+                    </span>
+                    <span class="shortcut-hint">
+                        <kbd>Enter</kbd> to send • <kbd>Shift</kbd>+<kbd>Enter</kbd> for new line
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Service Worker for PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(
+                    function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    },
+                    function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    }
+                );
+            });
+        }
+    </script>
+</body>
+</html>

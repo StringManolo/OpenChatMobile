@@ -1,0 +1,28 @@
+{
+  "name": "open-chat-mobile",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "open-chat-mobile": "./cli.js"
+  },
+  "scripts": {
+    "start": "node cli.js start",
+    "dev": "node cli.js start --foreground",
+    "stop": "node cli.js stop",
+    "status": "node clat-mobile.js status",
+    "logs": "node cli.js logs",
+    "config": "node cli.js config"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "morgan": "^1.10.1",
+    "node-llama-cpp": "^3.14.4",
+    "simpleargumentsparser": "^1.0.6",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

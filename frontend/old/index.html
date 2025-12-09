@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenChat Mobile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h1>LLaMA Chat</h1>
+          </div>
+          <button class="new-chat-btn" id="newChat">
+            <i class="fas fa-plus"></i> Nuevo chat
+          </button>
+        </div>
+
+        <div class="chat-history" id="chatHistory">
+          <!-- Historial dinámico -->
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="model-selector">
+            <select id="modelSelect">
+              <option value="llama-3.2-1b">Llama 3.2 1B</option>
+              <option value="llama-3.2-3b">Llama 3.2 3B</option>
+              <option value="llama-3.1-8b">Llama 3.1 8B</option>
+            </select>
+          </div>
+          <div class="user-profile">
+            <img src="https://ui-avatars.com/api/?name=Usuario&background=6c63ff&color=fff" 
+                 alt="Usuario" class="avatar">
+            <div class="user-info">
+              <span class="username">Usuario</span>
+              <button class="settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Chat -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="chat-header">
+          <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="current-model">
+              <span class="model-tag" id="currentModel">Llama 3.2 1B</span>
+              <span class="status-dot active"></span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="theme-toggle" id="themeToggle">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button class="settings-toggle" id="settingsToggle">
+              <i class="fas fa-sliders-h"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Messages Container -->
+        <div class="messages-container" id="messagesContainer">
+          <!-- Mensajes dinámicos -->
+          <div class="welcome-message" id="welcomeMessage">
+            <div class="welcome-content">
+              <h2><i class="fas fa-robot"></i> LLaMA Chat</h2>
+              <p>Conectado localmente con llama.cpp</p>
+              <div class="quick-prompts">
+                <button class="quick-prompt" data-prompt="Explícame cómo funciona la inteligencia artificial">
+                  <i class="fas fa-brain"></i> Explicar IA
+                </button>
+                <button class="quick-prompt" data-prompt="Escribe un poema sobre la tecnología">
+                  <i class="fas fa-pen-fancy"></i> Escribir poema
+                </button>
+                <button class="quick-prompt" data-prompt="Ayúdame con un problema de programación en JavaScript">
+                  <i class="fas fa-code"></i> Ayuda código
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-container">
+          <div class="input-wrapper">
+            <textarea id="messageInput" 
+                      placeholder="Escribe tu mensaje aquí... (Shift+Enter para nueva línea)"
+                      rows="1"></textarea>
+            <div class="input-actions">
+              <button class="action-btn" id="attachBtn" title="Adjuntar archivo">
+                <i class="fas fa-paperclip"></i>
+              </button>
+              <button class="send-btn" id="sendBtn">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="input-footer">
+            <div class="settings-bar">
+              <div class="setting">
+                <label for="temperature">
+                  <i class="fas fa-thermometer-half"></i>
+                  Temperatura: <span id="tempValue">0.7</span>
+                </label>
+                <input type="range" id="temperature" min="0" max="2" step="0.1" value="0.7">
+              </div>
+              <div class="setting">
+                <label for="maxTokens">
+                  <i class="fas fa-hashtag"></i>
+                  Tokens: <span id="tokensValue">512</span>
+                </label>
+                <input type="range" id="maxTokens" min="64" max="2048" step="64" value="512">
+              </div>
+            </div>
+
+            <div class="status-indicator">
+              <span id="statusText">Conectado</span>
+              <div class="typing-indicator" id="typingIndicator">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settingsModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3><i class="fas fa-cog"></i> Configuración</h3>
+              <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="setting-group">
+                <h4><i class="fas fa-microchip"></i> Configuración del Modelo</h4>
+                <div class="form-group">
+                  <label for="gpuLayers">Capas en GPU:</label>
+                  <input type="range" id="gpuLayers" min="0" max="100" value="20">
+                  <span id="gpuLayersValue">20</span>
+                </div>
+                <div class="form-group">
+                  <label for="contextSize">Tamaño de contexto:</label>
+                  <select id="contextSize">
+                    <option value="2048">2048 tokens</option>
+                    <option value="4096" selected>4096 tokens</option>
+                    <option value="8192">8192 tokens</option>
+                  </select>
+                </div>
+              </div>
+              <div class="setting-group">
+                <h4><i class="fas fa-user"></i> Preferencias</h4>
+                <div class="form-group checkbox">
+                  <input type="checkbox" id="streaming" checked>
+                  <label for="streaming">Streaming en tiempo real</label>
+                </div>
+                <div class="form-group checkbox">
+                  <input type="checkbox" id="sound" checked>
+                  <label for="sound">Sonido de notificaciones</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

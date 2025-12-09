@@ -1,0 +1,4 @@
+#!/usr/bin/env bash                                                                     
+MODEL_URL="https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+
+curl -L "$MODEL_URL" -o ./Llama-3.2-1B-Instruct-Q4_K_M.gguf
