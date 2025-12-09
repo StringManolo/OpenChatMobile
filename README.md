@@ -2,6 +2,20 @@
 
 A modern, feature-rich chat interface for LLaMA models with streaming responses, multiple chats, and extensive customization options.
 
+## Status
+Currently only supporting aarch64 with glibc. Arm64 is the most widespread arch, so most likelly working out the box on your Android device with Termux.
+
+> Install proot-distro and debian inside:  
+
+```bash
+pkg install proot-distro
+proot-distro install debian
+proot-distro login debian
+
+# Check in list last debian version name and use its alias if orevious commands didn't work:
+# proot-distro list
+```
+
 ## Features
 
 ### Frontend Features
