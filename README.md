@@ -17,15 +17,21 @@ proot-distro login debian
 ```
 
 ## Screenshots
-![screenshot 1](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg)  
-  
-![screenshot 2](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg)  
-  
-![screenshot 3](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg)  
-  
-![screenshot 4](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_4.jpg)  
-  
-![screenshot 1](https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_5.jpg)  
+<p align="center">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura de pantalla 1: Interfaz principal del chat" width="600" style="max-width: 100%;">
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg" alt="Captura de pantalla 2: Menú de selección de chat y ajustes" width="600" style="max-width: 100%;">
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg" alt="Captura de pantalla 3: Ajustes avanzados de modelo (temperatura y tokens)" width="600" style="max-width: 100%;">
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_4.jpg" alt="Captura de pantalla 4: Vista de chat con respuesta de streaming" width="600" style="max-width: 100%;">
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_5.jpg" alt="Captura de pantalla 5: Modo oscuro de la interfaz" width="600" style="max-width: 100%;">
+</p>
 
 ## Features
 
