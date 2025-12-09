@@ -19,7 +19,7 @@ proot-distro login debian
 ## Screenshots
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura 1" width="480" style="max-width: 100%;">
+  <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_1.jpg" alt="Captura 1" width="500" style="max-width: 100%;">
   <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
     <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_2.jpg" alt="Captura 2" width="250" style="max-width: 100%;">
     <img src="https://raw.githubusercontent.com/StringManolo/OpenChatMobile/refs/heads/main/repo_assets/ocm_3.jpg" alt="Captura 3" width="250" style="max-width: 100%;">
@@ -31,34 +31,60 @@ proot-distro login debian
 ## Features
 
 ### Frontend Features
-- **Multiple Chats**: Create, switch, and manage multiple chat sessions with persistent history
-- **Real-time Streaming**: Token-by-token streaming responses via WebSocket for instant feedback
-- **Day/Night Mode**: Toggle between light and dark themes with automatic preference detection
-- **Customizable Settings**: Adjust max tokens, temperature, and system prompts per chat
-- **Model Selection**: Choose between available GGUF models with automatic discovery
-- **File Upload**: Upload text files (drag & drop supported) and process their content
-- **Export Conversations**: Download entire chats as formatted Markdown files
-- **Copy to Clipboard**: Copy individual messages or entire chats with one click
-- **Responsive Design**: Fully responsive interface that works on desktop, tablet, and mobile
-- **Minimalist UI**: Clean, modern interface with smooth animations and transitions
-- **Debug Information**: Real-time connection status, WebSocket monitoring, and token counting
-- **Keyboard Shortcuts**: Quick actions with comprehensive keyboard shortcuts
-- **Quick Actions**: Pre-defined prompts for common tasks to get started quickly
-- **Regenerate Responses**: Regenerate bot responses to try different answers
-- **Auto-scroll**: Automatic scrolling to latest messages during conversations
-- **Connection Status**: Real-time WebSocket connection monitoring with auto-reconnect
-- **Toast Notifications**: Android-style toast notifications for user feedback
+- **Multiple Chats**: Create, switch, and manage multiple chat sessions with persistent history  
+
+- **Real-time Streaming**: Token-by-token streaming responses via WebSocket for instant feedback  
+
+- **Day/Night Mode**: Toggle between light and dark themes with automatic preference detection  
+
+- **Customizable Settings**: Adjust max tokens, temperature, and system prompts per chat  
+
+- **Model Selection**: Choose between available GGUF models with automatic discovery  
+
+- **File Upload**: Upload text files (drag & drop supported) and process their content  
+
+- **Export Conversations**: Download entire chats as formatted Markdown files  
+
+- **Copy to Clipboard**: Copy individual messages or entire chats with one click  
+
+- **Responsive Design**: Fully responsive interface that works on desktop, tablet, and mobile  
+
+- **Minimalist UI**: Clean, modern interface with smooth animations and transitions  
+
+- **Debug Information**: Real-time connection status, WebSocket monitoring, and token counting  
+
+- **Keyboard Shortcuts**: Quick actions with comprehensive keyboard shortcuts  
+
+- **Quick Actions**: Pre-defined prompts for common tasks to get started quickly  
+
+- **Regenerate Responses**: Regenerate bot responses to try different answers  
+
+- **Auto-scroll**: Automatic scrolling to latest messages during conversations  
+
+- **Connection Status**: Real-time WebSocket connection monitoring with auto-reconnect  
+
+- **Toast Notifications**: Android-style toast notifications for user feedback  
+
 
 ### Backend Features
-- **Detailed Logging**: Comprehensive logs with timestamps and colored output in `./backend/logs/`
-- **CLI Colors**: Colored terminal output for better readability and debugging
-- **Foreground Mode**: Run with detailed output in terminal for real-time monitoring
-- **WebSocket Support**: Real-time bidirectional communication for streaming responses
-- **Health Monitoring**: Server status endpoints and connection tracking
-- **File Upload API**: Handle file uploads and processing with size and type validation
-- **Model Discovery**: Automatically detect available GGUF models in the models directory
-- **Graceful Shutdown**: Clean shutdown of all processes including WebSocket connections
-- **Configuration Management**: CLI-based configuration with JSON persistence
+- **Detailed Logging**: Comprehensive logs with timestamps and colored output in `./backend/logs/`  
+
+- **CLI Colors**: Colored terminal output for better readability and debugging  
+
+- **Foreground Mode**: Run with detailed output in terminal for real-time monitoring  
+
+- **WebSocket Support**: Real-time bidirectional communication for streaming responses  
+
+- **Health Monitoring**: Server status endpoints and connection tracking  
+
+- **File Upload API**: Handle file uploads and processing with size and type validation  
+
+- **Model Discovery**: Automatically detect available GGUF models in the models directory  
+
+- **Graceful Shutdown**: Clean shutdown of all processes including WebSocket connections  
+
+- **Configuration Management**: CLI-based configuration with JSON persistence  
+
 
 ## Installation
 
