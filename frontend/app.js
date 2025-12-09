@@ -1195,8 +1195,7 @@ class OpenChatMobile {
     renderEmptyChatState(chat) {
         const emptyState = document.createElement('div');
         emptyState.className = 'welcome-message';
-        emptyState.innerHTML = `
-            <div class="welcome-content">
+        emptyState.innerHTML = `<div class="welcome-content">
                 <h3>💬 ${this.escapeHtml(chat.title)}</h3>
                 <p>This chat is empty. Send a message to start the conversation.</p>
                 <p class="hint">You can also upload files, adjust settings, and customize your experience.</p>
@@ -1246,23 +1245,19 @@ class OpenChatMobile {
         
         const isTyping = message.id === this.typingMessageId;
         
-        messageDiv.innerHTML = `
-            <div class="message-header">
-                <div class="message-avatar">${avatar}</div>
-                <div class="message-time">${time}</div>
-            </div>
-            <div class="message-content ${isTyping ? 'typing' : ''}">
-                ${this.markdownToHtml(message.content)}
-            </div>
-            <div class="message-actions">
-                <button class="btn-icon copy-message-btn" data-message-id="${message.id}" title="Copy message">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button class="btn-icon regenerate-btn" data-message-id="${message.id}" title="Regenerate">
-                    <i class="fas fa-redo"></i>
-                </button>
-            </div>
-        `;
+        messageDiv.innerHTML = `<div class="message-header">
+          <div class="message-avatar">${avatar}</div>
+          <div class="message-time">${time}</div>
+        </div>
+        <div class="message-content ${isTyping ? 'typing' : ''}">${this.markdownToHtml(message.content)}</div>
+        <div class="message-actions">
+          <button class="btn-icon copy-message-btn" data-message-id="${message.id}" title="Copy message">
+            <i class="fas fa-copy"></i>
+          </button>
+          <button class="btn-icon regenerate-btn" data-message-id="${message.id}" title="Regenerate">
+            <i class="fas fa-redo"></i>
+          </button>
+        </div>`;
         
         // Add event listeners for action buttons
         const copyBtn = messageDiv.querySelector('.copy-message-btn');
